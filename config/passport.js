@@ -27,7 +27,11 @@ module.exports = function() {
 	});
 
 	// Initialize strategies
-	config.getGlobbedFiles('./config/strategies/**/*.js').forEach(function(strategy) {
-		require(path.resolve(strategy))();
-	});
+//  config.getGlobbedFiles('./config/strategies/**/*.js').forEach(function(strategy) {
+//    console.log(strategy);
+//	  require(path.resolve(strategy))();
+//  });
+  require(path.resolve('./config/strategies/local.js'));
+    // We only use user/pass
+    
 };
