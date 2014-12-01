@@ -10,7 +10,7 @@ angular.module('product').
       $scope.kpiTitle    = $stateParams.func;
       
       $scope.gconfig = {
-        title: 'DAU',
+        title: '',
         tooltips: true,
         labels: false,
         mouseover: function() {},
@@ -21,18 +21,22 @@ angular.module('product').
           position: 'right'
         }
       };
+
       $scope.gdata = {
-        series: ['dau'],
-        data: [{
-          x: '2014-11-11',
-          y: [1100]
-        }]
+        series: [],
+        data:[]
+      };
+
+      $scope.data = [];
+
+      $scope.hasData = function() {
+        return $scope.data.length > 0;
       };
       
       $scope.dau = function() {
         CommonAPI.dau('avatar').get({from: $scope.from, to: $scope.to}, function(res) {
-          $scope.data        = res.data;
-
+          $scope.gconfig.title = 'DAU';
+          $scope.data          = res.data;
           var tmpData = {
             series: ['dau'],
             data: []
@@ -40,7 +44,7 @@ angular.module('product').
           $scope.data.forEach(function(entry, index, array) {
             tmpData.data.push({
               x: entry.date,
-              y: [entry.dau]
+              y: [entry.DAU]
             });
           });
           $scope.gdata = tmpData;
