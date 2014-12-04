@@ -45,7 +45,6 @@ exports.dau = function(req, res) {
             val.change = 0;
             ret.push(val);
           } else {
-            val.DAU = Match.random();
             val.change = val.DAU - array[index - 1].DAU;
             ret.push(val);
           }
