@@ -48,7 +48,7 @@ angular.module('product').
             });
           });
           $scope.gdata = tmpData;
-
+          console.log($scope.data);
           console.log($scope.gdata);
         });
       };

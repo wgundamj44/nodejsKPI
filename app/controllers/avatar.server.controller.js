@@ -33,7 +33,7 @@ exports.dau = function(req, res) {
 
     var col = db.collection('Avatar_GeneralKPI');
     var ret = [];
-    col.find({date: {$gte: from, $lte: to}}, {"_id" : 0, "DAU": 1}).sort({date: 1}).toArray(function(err, r) {
+    col.find({date: {$gte: from, $lte: to}}, {"_id" : 0, "DAU": 1, "date": 1}).sort({date: 1}).toArray(function(err, r) {
       if (err) {
         console.err(err);
         return res.status(400).send({
