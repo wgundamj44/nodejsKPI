@@ -18,9 +18,9 @@ var spawn = require('child_process').spawn,
     config = require('../../config/config.js'),
     baseDir = '/BACKUP/log/';
 
-var productName = process.argv[3] || 'Avatar',
-    targetDate = process.argv[4] || new Date().addDays(-1).toYMD('-'),
-    kpiName     = process.argv[5] || 'GeneralKPI';
+var productName = process.argv[2] || 'Avatar',
+    targetDate = process.argv[3] || new Date().addDays(-1).toYMD('-'),
+    kpiName     = process.argv[4] || 'GeneralKPI';
 
 
 function loadKPI(logDir, name, date, kpi) {
