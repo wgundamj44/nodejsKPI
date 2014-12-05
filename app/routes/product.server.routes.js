@@ -10,6 +10,9 @@ module.exports = function(app) {
   router.use(users.requiresLogin);
   router.route('/avatar/funcList').get(avatar.funcList);
   router.route('/avatar/dau').get(avatar.dau);
+  router.route('/avatar/generalKPIList').get(avatar.generalKPIList);
+  router.route('/avatar/loadGeneralKPI').get(avatar.loadGeneralKPI);
+  router.route('/avatar/downloadGeneralKPI').get(avatar.downloadGeneralKPI);
 
   app.use('/product', router);
 };
