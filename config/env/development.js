@@ -1,7 +1,8 @@
 'use strict';
 
+var DB_HOST = process.env.DB_HOST || 'localhost';
 module.exports = {
-	db: 'mongodb://localhost/testproject-dev',
+	db: 'mongodb://' + DB_HOST + '/testproject-dev',
 	app: {
 		title: 'testProject - Development Environment'
 	},

@@ -90,7 +90,7 @@ exports.loadGeneralKPI = function(req, res) {
     var col = db.collection('Avatar_GeneralKPI'),
         cri = {_id: 0, date: 1};
     cri[kpiName] = 1;
-    col.find({date: {$gte: from, $lte: to}}, cri).toArray(function(err, items) {
+    col.find({date: {$gte: from, $lte: to}}, cri).sort({date: 1}).toArray(function(err, items) {
       res.json({data: items});
     });
   });
