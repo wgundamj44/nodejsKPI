@@ -9,28 +9,53 @@ angular.module('product').
         $scope.kpiTitle    = 'GeneralKPI';
         
 
-        $scope.data = [];
+        $scope.gdata = [
+        ];
 
         $scope.generalKPIList = generalKPIList;
 
         $scope.hasData = function() {
-          return $scope.data.length > 0;
+          return $scope.gdata.length > 0;
+        };
+
+        $scope.xAxisTickFormat = function() {
+          return function(d) {
+            return d3.time.format('%x')(new Date(d));
+          };
         };
 
         $scope.loadKPI = function() {
-          console.log($scope.kpiName);
           $scope.clearFigure();
           if (!$scope.kpiName) return;
-          $scope.data = AvatarAPI.loadGeneralKPI().get({kpiName: $scope.kpiName, from: $scope.from, to: $scope.to}, function(res) {
-            $scope.gconfig.title = $scope.kpiName;
+          var format = d3.time.format('%Y-%m-%d');
+          AvatarAPI.loadGeneralKPI().get({kpiName: $scope.kpiName, from: $scope.from, to: $scope.to}, function(res) {
             $scope.data = res.data;
-            console.log($scope.data);
-            $scope.data.forEach(function(entry, index, array) {
-              $scope.gdata.data.push({
-                x: entry.date,
-                y: [entry[$scope.kpiName]]
+            
+            if ($scope.data.length == 0) {
+              return;
+            }
+            var keys = Object.keys($scope.data[0]).filter(function(name) {
+              return name != 'date';
+            });
+            var series = {}, gdata = [];
+            $scope.kpiNames = keys;
+            keys.forEach(function(key) {
+              series[key] = [];
+            });
+            //            var series = {key: $scope.kpiName, values: []};
+            
+            res.data.forEach(function(entry, index, array) {
+              //  series.values.push([format.parse(entry.date).getTime(), entry[$scope.kpiName]]);
+              keys.forEach(function(key) {
+                series[key].push([format.parse(entry.date).getTime(), entry[key]]);
               });
             });
+            //            $scope.gdata = [series];
+            
+            Object.keys(series).forEach(function(key) {
+              gdata.push({key: key, values: series[key]});
+            });
+            $scope.gdata = gdata;
           });
         };
 
@@ -46,24 +71,8 @@ angular.module('product').
         };
 
         $scope.clearFigure = function() {
-          $scope.data = [];
-          $scope.gconfig = {
-            title: '',
-            tooltips: true,
-            labels: false,
-            mouseover: function() {},
-            mouseout: function() {},
-            click: function() {},
-            legend: {
-              display: false,
-              position: 'right'
-            }
-          };
-
-          $scope.gdata = {
-            series: [],
-            data:[]
-          };
+          $scope.gdata = [
+          ];
         };
       }
      ]

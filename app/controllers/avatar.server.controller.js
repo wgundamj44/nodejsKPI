@@ -10,6 +10,13 @@ require('date-utils');
 
 
 var productName = 'AvatarDrive';
+var kpiPerCarrier = {
+  'regist_user_num': 1,
+  'DAU': 1,
+  'sales': 1,
+  'pay_UU': 1,
+  'tutorial_end_num': 1
+};
 
 exports.funcList = function(req, res) {
   return res.json(['generalKPI', 'DAU']);
@@ -31,7 +38,17 @@ exports.generalKPIList = function(req, res) {
         console.log(err);
         return res.json(err);
       }
-      return res.json(Object.keys(item));
+      var re = /^(.+)_([^_]+)$/;
+      var kpiNames = Object.keys(item).filter(function(name) {
+        var result = re.exec(name);
+        if (result === null) {
+          return true;
+        }
+        return !kpiPerCarrier.hasOwnProperty(result[1]);
+      });
+      kpiNames = kpiNames.concat(Object.keys(kpiPerCarrier));
+      //      return res.json(Object.keys(item));
+      return res.json(kpiNames);
     });
   });
 };
@@ -89,12 +106,22 @@ exports.loadGeneralKPI = function(req, res) {
     }
     var col = db.collection('Avatar_GeneralKPI'),
         cri = {_id: 0, date: 1};
-    cri[kpiName] = 1;
+    if (!kpiPerCarrier.hasOwnProperty(kpiName)) {
+      cri[kpiName] = 1;
+    } else {
+      cri[kpiName + '_iOS'] = 1;
+      cri[kpiName + '_iPad'] = 1;
+      cri[kpiName + '_Android'] = 1;
+      cri[kpiName + '_Kindle'] = 1;
+      cri[kpiName] = 1;
+    }
+    console.log(cri);
     col.find({date: {$gte: from, $lte: to}}, cri).sort({date: 1}).toArray(function(err, items) {
       res.json({data: items});
     });
   });
 };
+
 
 exports.downloadGeneralKPI = function(req, res) {
   var to   = req.query.to || new Date().addDays(-1).toYMD('-'),

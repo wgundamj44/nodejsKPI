@@ -15,6 +15,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+                'public/lib/nvd3/nv.d3.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -23,7 +24,8 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 			    'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/d3/d3.min.js',
-                'public/lib/angular-charts/dist/angular-charts.js'
+                'public/lib/nvd3/nv.d3.min.js',
+                'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js'
 			]
 		},
 		css: [

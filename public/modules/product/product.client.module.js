@@ -1,3 +1,3 @@
 'user strict';
 
-ApplicationConfiguration.registerModule('product', ['angularCharts']);
+ApplicationConfiguration.registerModule('product', ['nvd3ChartDirectives']);

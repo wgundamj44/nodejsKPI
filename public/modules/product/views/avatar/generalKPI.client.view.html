@@ -22,16 +22,28 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th>{{ kpiName }}</th>
+        <th ng-repeat="kpiName in kpiNames">{{ kpiName }}</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="row in data">
         <td>{{ row.date }} </td>
-        <td>{{ row[kpiName] }} </td>
+        <td ng-repeat="kpiName in kpiNames">{{ row[kpiName] }} </td>
       </tr>
     </tbody>
   </table>
-  <div ac-chart="'line'" ac-data="gdata" ac-config="gconfig" class="chart" ng-show="hasData()"></div>
+
+  <nvd3-multi-bar-chart
+    data="gdata"
+    id="exampleId"
+    width="800"
+    height="350"
+    showLegend="true"
+    showXAxis="true"
+    showYAxis="true"
+    tooltips="true"
+    xAxisTickFormat="xAxisTickFormat()">
+    <svg></svg>
+  </nvd3-multi-bar-chart>
  </div>
 </div>
