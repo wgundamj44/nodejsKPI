@@ -13,6 +13,5 @@ This is a simple KPI Tools for AvatarDrive, powered by [MEAN.js](http://meanjs.o
   * service currently runs batch02sk
   * use nodejs program *forever* to persists the server.js process. The Comannd is: PORT=20200 forever -w server.js
   * domain name is: kpi.bluetoother.trifort.jp
-  * ip address is: 210.140.128.76
   * To develop, just fork this repsository, and commit use merge request.
   * To deploy, directly pull from this repository as root user in batch02sk.

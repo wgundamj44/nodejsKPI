@@ -23,6 +23,9 @@ angular.module('product').
             return d3.time.format('%x')(new Date(d));
           };
         };
+        $scope.yAxisTickFormat = function() {
+            return d3.format(',f');
+        };
 
         $scope.loadKPI = function() {
           $scope.clearFigure();
@@ -55,6 +58,7 @@ angular.module('product').
             Object.keys(series).forEach(function(key) {
               gdata.push({key: key, values: series[key]});
             });
+            console.log(gdata);
             $scope.gdata = gdata;
           });
         };
